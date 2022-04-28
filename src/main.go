@@ -4,6 +4,7 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/joho/godotenv"
 	"go.jwt.example/httpd"
+	"go.jwt.example/model"
 	"log"
 )
 
@@ -14,6 +15,8 @@ func main() {
 		log.Fatal(err.Error())
 		return
 	}
+	model.InitDB()
+	model.Migrate()
 	router.GET("/", httpd.Index)
 	router.GET("/_healthy", httpd.HealthyCheck)
 	api := router.Group("/v1")
